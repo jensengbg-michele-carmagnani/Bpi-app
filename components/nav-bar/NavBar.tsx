@@ -47,7 +47,9 @@ const NavBar: React.FC<Props> = () => {
 
   return (
     <div
-      className={cn(`border-b flex justify-between items-center px-10 py-5 `)}
+      className={cn(
+        `border-b  flex  flex-col-reverse md:flex-row  justify-between items-center px-10 py-5 `
+      )}
     >
       {step !== STEPS.START && stepToTitle[step] && (
         <Heading title={stepToTitle[step]} className={cn(" ")} />
