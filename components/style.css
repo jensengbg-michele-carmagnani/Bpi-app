@@ -1,0 +1,9 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+span {
+  border: 1px solid red;
+  background: radial-gradient(black, transparent);
+}
