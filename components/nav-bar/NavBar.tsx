@@ -10,7 +10,7 @@ import { GrPowerReset } from "react-icons/gr";
 
 import useBpiStorage from "@/app/hooks/useStore";
 import Heading from "../heading";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { STEPS } from "@/typings";
 
 const navItems = [
@@ -42,7 +42,6 @@ type Props = {};
 const NavBar: React.FC<Props> = () => {
   const { onNext, onBack, step, resetStep } = useBpiStorage();
   const pathname = usePathname();
-  const { reload } = useRouter();
 
   if (pathname === ROOT_PATH) return null;
 
@@ -77,7 +76,6 @@ const NavBar: React.FC<Props> = () => {
             className="cursor-pointer"
             onClick={() => {
               resetStep();
-              reload();
             }}
           >
             <GrPowerReset size={35} />
