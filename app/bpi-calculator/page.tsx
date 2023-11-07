@@ -107,7 +107,8 @@ const BpiCalculator = () => {
 
   useEffect(() => {
     () => resetStep();
-  });
+    setSelectedElements([]);
+  }, [resetStep]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (step !== STEPS.RESULTS) {
@@ -252,7 +253,7 @@ const BpiCalculator = () => {
           />
         </InputContainer>
 
-        <section className="grid grid-cols-2">
+        <section className="grid grid-cols-1 md:grid-cols-2 space-y-3 bg-purple-400/10 p-3 rounded-sm">
           <Heading
             subtitle="6. Quali terapie o farmaci sta ricevendo per il suo dolore?
             ha avuto**"

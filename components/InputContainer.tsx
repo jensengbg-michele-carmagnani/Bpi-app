@@ -20,7 +20,7 @@ const InputContainer: React.FC<Props> = ({
 }) => {
   if (type === "text") {
     return (
-      <section className="grid grid-cols-2">
+      <section className="grid grid-cols-1 md:grid-cols-2 space-y-3 bg-purple-400/10 p-3 rounded-sm">
         {children}
         <div className="flex justify-center items-center space-x-4 ">
           <Textarea
@@ -34,7 +34,7 @@ const InputContainer: React.FC<Props> = ({
     );
   }
   return (
-    <section className="grid grid-cols-2">
+    <section className="grid grid-cols-1 md:grid-cols-2 space-y-3 bg-purple-400/10 p-3 rounded-sm">
       {children}
       <div className="flex justify-center items-center space-x-4 ">
         <Input
