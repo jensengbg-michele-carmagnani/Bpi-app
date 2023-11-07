@@ -16,7 +16,8 @@ import InputContainer from "@/components/InputContainer";
 import Heading from "@/components/heading";
 import { Results } from "@/components/results/Results";
 import { STEPS } from "@/typings";
-import Body from "../../public/images/Body";
+import Body from "@/public/images/body";
+
 
 export type SelectedElement = {
   elementId: string;
