@@ -13,7 +13,7 @@ type Props = {
 const Legend: React.FC<Props> = ({ title_1, title_2, title_3, className }) => {
   const { step } = useZStore();
   const resultStep = +step !== STEPS.RESULTS;
-  console.log(resultStep);
+
   return (
     <div className={cn("flex flex-col justify-start", className)}>
       <p>* Nessun dolore = 0; Dolore più forte immaginabile = 10;</p>

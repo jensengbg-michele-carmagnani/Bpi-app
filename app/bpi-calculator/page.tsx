@@ -6,18 +6,22 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import Container from "@/components/Container";
 import { cn } from "@/lib/utils";
-import Body from "@/public/images/body";
 
 import { Textarea } from "@/components/ui/textarea";
 import Footer from "../../components/Footer";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import useZStore from "../hooks/useStore";
 
 import InputContainer from "@/components/InputContainer";
 import Heading from "@/components/heading";
 import { Results } from "@/components/results/Results";
 import { STEPS } from "@/typings";
+import Body from "@/public/images/Body";
 
+export type SelectedElement = {
+  elementId: string;
+  isActive: boolean;
+};
 
 const BpiCalculator = () => {
   const { step, onNext, resetStep } = useZStore();
@@ -61,14 +65,44 @@ const BpiCalculator = () => {
   const sleeping = watch("sleeping");
   const enjoyLife = watch("enjoyLife");
 
-  const selectedImageHandler = (e: any) => {
+  const [selectedElements, setSelectedElements] = useState<SelectedElement[]>(
+    []
+  );
+  const selectedImageHandler = (
+    e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault();
-    const target = e.target;
-    if (!target.style.fill) {
-      target.style.fill = "purple";
-    } else {
-      target.style.fill = "";
-    }
+
+    const target = e.target as HTMLElement;
+    if (target.tagName.toLowerCase() !== "path") return null;
+
+    const parentNodeId = target.parentElement?.id || "";
+
+    setSelectedElements((prevSelected) => {
+      const hasElementId = prevSelected?.find(
+        (item) => item.elementId === parentNodeId
+      );
+      //modify the state of an existing item to false
+      if (hasElementId && hasElementId.isActive) {
+        return [
+          ...prevSelected?.filter(
+            (item) => item.elementId !== hasElementId.elementId
+          ),
+          { elementId: hasElementId.elementId, isActive: false },
+        ];
+      } else {
+        //modify the state of an existing item to true
+        if (hasElementId && !hasElementId?.isActive)
+          return [
+            ...prevSelected?.filter(
+              (item) => item.elementId !== hasElementId.elementId
+            ),
+            { elementId: hasElementId.elementId, isActive: true },
+          ];
+        //add new selected item
+        return [...prevSelected, { elementId: parentNodeId, isActive: true }];
+      }
+    });
   };
 
   useEffect(() => {
@@ -76,7 +110,6 @@ const BpiCalculator = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("data", await data);
     if (step !== STEPS.RESULTS) {
       return onNext();
     } else {
@@ -139,24 +172,22 @@ const BpiCalculator = () => {
     </>
   );
 
-  if (step === STEPS.LOCATIONPAIN) {
-    bodyContent = (
-      <>
-        <Body
-          {...register("body")}
-          width={"700"}
-          height={"700"}
-          onClick={(e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>) =>
-            selectedImageHandler(e)
-          }
-          className={cn(`cursor-pointer  object-cover w-full `)}
-        />
-        <Button className={cn("w-full")} onClick={onSubmit}>
-          next
-        </Button>
-      </>
-    );
-  }
+  let bodyLocationPain = (
+    <div>
+      <Body
+        width={"700"}
+        height={"700"}
+        selectedElements={selectedElements}
+        onClick={(e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>) =>
+          selectedImageHandler(e)
+        }
+        className={cn(` object-cover w-full `)}
+      />
+      <Button className={cn("w-full")} onClick={onSubmit}>
+        next
+      </Button>
+    </div>
+  );
 
   if (step === STEPS.PAINASSESSMENT) {
     bodyContent = (
@@ -352,7 +383,8 @@ const BpiCalculator = () => {
 
   return (
     <Container className={cn("space-y-10 text-xl py-4 ")}>
-      {bodyContent}
+      {step === STEPS.LOCATIONPAIN && bodyLocationPain}
+      {step !== STEPS.LOCATIONPAIN && bodyContent}
       {step >= 2 && (
         <Footer
           onSubmit={handleSubmit(onSubmit)}
