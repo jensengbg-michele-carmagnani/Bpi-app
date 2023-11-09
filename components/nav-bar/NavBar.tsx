@@ -27,7 +27,7 @@ const titles = {
   LOCATION: "Selezionare la parte del corpo dove sente dolore",
   PAINASSESSMENT: "Trascini il cursore per selezionare la sua risposta",
   CAPABILITIESASSESSMENT: "Trascini il cursore per selezionare la sua risposta",
-  RESULTS: "Interpretazione dei risultati1,3",
+  RESULTS: "Interpretazione dei risultati 1,3",
 };
 const stepToTitle = {
   [STEPS.START]: titles.START,
@@ -52,7 +52,7 @@ const NavBar: React.FC<Props> = () => {
       )}
     >
       {step !== STEPS.START && stepToTitle[step] && (
-        <Heading title={stepToTitle[step]} className={cn(" ")} />
+        <Heading title={stepToTitle[step]} className={cn("text-sm  ")} />
       )}
 
       <div className="flex h-16 items-center px-4">

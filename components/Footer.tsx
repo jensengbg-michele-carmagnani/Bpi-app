@@ -11,8 +11,8 @@ type Props = {
 
 const Footer: React.FC<Props> = ({ onSubmit, title }) => {
   return (
-    <div className="grid grid-col-1 text-center md:text-left md:grid-cols-2 gap-3 items-center ">
-      <Legend className={cn("flex-initial text-sm")} />
+    <div className="grid grid-col-1 text-center md:text-left md:grid-cols-2 gap-3 items-center px-2  ">
+      <Legend className={cn("flex-initial text-xs")} />
       <Button
         className={cn(" bg-green-500 flex-auto justify-self-stretch ")}
         onClick={onSubmit}

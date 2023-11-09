@@ -384,7 +384,7 @@ const BpiCalculator = () => {
   }
 
   return (
-    <Container className={cn("space-y-10 text-xl py-4 ")}>
+    <Container className={cn("space-y-10 text-xl pb-9 ")}>
       {step === STEPS.LOCATIONPAIN && bodyLocationPain}
       {step !== STEPS.LOCATIONPAIN && bodyContent}
       {step >= 2 && (
