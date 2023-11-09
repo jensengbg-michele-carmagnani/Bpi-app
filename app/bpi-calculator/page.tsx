@@ -18,7 +18,6 @@ import { Results } from "@/components/results/Results";
 import { STEPS } from "@/typings";
 import Body from "@/public/images/body";
 
-
 export type SelectedElement = {
   elementId: string;
   isActive: boolean;
@@ -117,6 +116,7 @@ const BpiCalculator = () => {
     } else {
       reset();
       resetStep();
+      setSelectedElements([]);
     }
   };
 

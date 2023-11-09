@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 @layer components {
-  .st1 {
-    @apply opacity-10 fill-purple-700;
+  /* Track styles */
+  .custom-range {
+    --track-height: 10px; /* Set the height of the track */
+    --thumb-size: 40px; /* Set the size of the thumb */
+
+    /* Customize the appearance of the track */
+    @apply bg-gray-300 h-[var(--track-height)];
   }
-  .st2 {
-    @apply fill-purple-700;
+
+  .custom-range::-webkit-slider-thumb {
+    /* Customize the appearance of the thumb */
+    @apply bg-purple-500 w-[var(--thumb-size)] h-[var(--thumb-size)] border-none rounded-full cursor-pointer appearance-none;
+    margin-top: calc((var(--track-height) - var(--thumb-size)) / 2);
   }
 }
 
@@ -39,7 +47,6 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
   }
